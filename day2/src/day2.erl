@@ -21,10 +21,21 @@ readfile(FileName) ->
 
 
 intcode(List) ->
-    intcode(List, []).
-intcode([99|_], List) ->
+    intcode(List, 0).
+intcode([99|T], List) ->
     lists:last(List).
-intcode([Opcode|[Input1|[Input2|[Output|T]]]], List) ->
-    intcode()
+intcode(List, Pointer) ->
+    Input1 = lists:nth(Pointer + 1),
+    Input2 = lists:nth(Pointer + 2),
 
+    if 
+        lists:nth(Pointer) == 1 ->
+            Output = Input1 + Input2;
+        true ->
+            Output = Input1 * Input2
+    end;
+    intcode(lists:, Pointer + 4)
+
+
+getInput
 %% internal functions
