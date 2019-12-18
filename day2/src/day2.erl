@@ -7,13 +7,25 @@
 
 -behaviour(application).
 
--export([start/2, stop/1, intcode/1, replace_elms/3]).
+-export([start/2, stop/1, intcode/1, replace_elms/3, brute_force/2]).
 
 start(_StartType, _StartArgs) ->
-    intcode(replace_elms(readfile(input), 12, 2)).
+    brute_force(readfile(input), 19690720).
 
 stop(_State) ->
     ok.
+brute_force(List, Ans) ->
+    brute_force(0,0,List,Ans).
+brute_force(Noun, Verb, List, Ans) ->
+    case intcode(replace_elms(List, Noun, Verb)) of
+        Ans -> {Noun, Verb, (100 * Noun) + Verb};
+        _ ->
+            case Noun of
+                Verb -> brute_force(Noun + 1, 0, List, Ans);
+                _ -> brute_force(Noun, Verb + 1, List, Ans)
+            end
+    end.
+
 
 readfile(FileName) ->
   {ok, Binary} = file:read_file(FileName),
