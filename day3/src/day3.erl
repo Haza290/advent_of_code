@@ -4,14 +4,14 @@
 %%%-------------------------------------------------------------------
 
 -module(day3).
--export([get_closes_cross/1, get_all_cross_points/2, get_all_points/1, get_points_from_move/2, readfile/1]).
+-export([start/0, get_closes_cross/1, get_all_cross_points/2, get_all_points/1, get_points_from_move/2, readfile/1]).
 
-%start() ->
-%    get_closes_cross(readfile(input)).
+start() ->
+    get_closes_cross(readfile(input)).
 
 get_closes_cross(Lines) ->
     {Line1, Line2} = Lines,
-    lists:filter(fun({X,Y}) -> abs(X) + abs(Y) end, get_all_cross_points(Line1, Line2)).
+    lists:min(lists:map(fun({X,Y}) -> abs(X) + abs(Y) end, get_all_cross_points(Line1, Line2))).
 
 get_all_cross_points(Line1, Line2) ->
     Line1Points = get_all_points(Line1),
