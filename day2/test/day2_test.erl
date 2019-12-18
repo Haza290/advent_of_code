@@ -12,3 +12,6 @@ smiple_test() ->
 
 complex_test() ->
     day2:intcode([1,9,10,3,2,3,11,0,99,30,40,50]) == 3500.
+
+replace_elms_test() ->
+    day2:replace_elms([1,0,0,0,99], 3, 5) == [1,3,5,0,99].
