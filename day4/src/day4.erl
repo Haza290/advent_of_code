@@ -21,7 +21,11 @@ is_valid_password(Password) ->
     List = integer_to_list(Password),
     is_valid_password(lists:nth(1,List),lists:nth(2,List),lists:nth(3,List),lists:nth(4,List),lists:nth(5,List),lists:nth(6,List)).
 is_valid_password(P1,P2,P3,P4,P5,P6) when (P1 > P2) or (P2 > P3) or (P3 > P4) or (P4 > P5) or (P5 > P6) or 
-                                        (not ((P1==P2) or (P2==P3) or (P3==P4) or (P4==P5) or (P5==P6))) ->
+                                        (not ( ((P1==P2) and (P2/=P3)) 
+                                            or ((P1/=P2) and (P2==P3) and (P3/=P4)) 
+                                            or ((P2/=P3) and (P3==P4) and (P4/=P5)) 
+                                            or ((P3/=P4) and (P4==P5) and (P5/=P6)) 
+                                            or ((P4/=P5) and (P5==P6)) )) ->
     false;
 is_valid_password(_,_,_,_,_,_) ->
     true.
